@@ -21,6 +21,7 @@ module.exports = function(THREE) {
         opt = opt||{}
 
         this._positions = new THREE.BufferAttribute(null, 3)
+        this._texcoord = new THREE.BufferAttribute(null, 2)
         this._normals = new THREE.BufferAttribute(null, 2)
         this._miters = new THREE.BufferAttribute(null, 1)
         this._indices = new THREE.BufferAttribute(null, 1)
@@ -32,6 +33,7 @@ module.exports = function(THREE) {
 
         this.addAttribute('position', this._positions)
         this.addAttribute('lineNormal', this._normals)
+        this.addAttribute('texcoord', this._texcoord)
         this.addAttribute('lineMiter', this._miters)
         this.addAttribute('index', this._indices)
 
@@ -72,7 +74,8 @@ module.exports = function(THREE) {
             this._distances.needsUpdate = true
         
         var index = 0,
-            c = 0, 
+            c = 0,
+            t = 0,
             dIndex = 0,
             indexArray = this._indices.array
             
@@ -84,6 +87,18 @@ module.exports = function(THREE) {
             indexArray[c++] = i + 2 
             indexArray[c++] = i + 1 
             indexArray[c++] = i + 3 
+
+            this._texcoord.array[t++] = 0;
+            this._texcoord.array[t++] = 1;
+
+            this._texcoord.array[t++] = 1;
+            this._texcoord.array[t++] = 1;
+
+            this._texcoord.array[t++] = 0;
+            this._texcoord.array[t++] = 0;
+
+            this._texcoord.array[t++] = 1;
+            this._texcoord.array[t++] = 0;
 
             this._positions.setXYZ(index++, point[0], point[1], 0)
             this._positions.setXYZ(index++, point[0], point[1], 0)
